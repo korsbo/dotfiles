@@ -1,0 +1,149 @@
+[global_config]
+  enabled_plugins = CustomCommandsMenu, TerminatorThemes, LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  focus = mouse
+  inactive_color_offset = 0.81
+  tab_position = hidden
+  title_inactive_bg_color = "#75715e"
+  title_inactive_fg_color = "#f8f8f2"
+  title_transmit_bg_color = "#272822"
+  title_transmit_fg_color = "#f8f8f2"
+[keybindings]
+  full_screen = F12
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = Earthsong
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#002b36"
+    background_darkness = 0.92
+    cursor_color = "#f8f8f2"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#839496"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Afterglow]]
+    background_color = "#212121"
+    background_darkness = 0.92
+    cursor_color = "#d0d0d0"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#d0d0d0"
+    palette = "#151515:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#d0d0d0:#505050:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#f5f5f5"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Atom]]
+    background_color = "#161719"
+    background_darkness = 0.92
+    cursor_color = "#d0d0d0"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#c5c8c6"
+    palette = "#000000:#fd5ff1:#87c38a:#ffd7b1:#85befd:#b9b6fc:#85befd:#e0e0e0:#000000:#fd5ff1:#94fa36:#f5ffa8:#96cbfe:#b9b6fc:#85befd:#e0e0e0"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[BirdsOfParadise]]
+    background_color = "#2a1f1d"
+    background_darkness = 0.92
+    cursor_color = "#573d26"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#e0dbb7"
+    palette = "#573d26:#be2d26:#6ba18a:#e99d2a:#5a86ad:#ac80a6:#74a6ad:#e0dbb7:#9b6c4a:#e84627:#95d8ba:#d0d150:#b8d3ed:#d19ecb:#93cfd7:#fff9d5"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Darker]]
+    background_color = "#272822"
+    cursor_color = "#aaaaaa"
+    custom_command = /usr/bin/zsh
+    foreground_color = "#f8f8f2"
+    use_custom_command = True
+    visible_bell = True
+  [[DimmedMonokai]]
+    background_color = "#1f1f1f"
+    background_darkness = 0.92
+    cursor_color = "#f83e19"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#b9bcba"
+    palette = "#3a3d43:#be3f48:#879a3b:#c5a635:#4f76a1:#855c8d:#578fa4:#b9bcba:#888987:#fb001f:#0f722f:#c47033:#186de3:#fb0067:#2e706d:#fdffb9"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Earthsong]]
+    background_color = "#292520"
+    background_darkness = 0.92
+    cursor_color = "#f6f7ec"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#e5c7a9"
+    palette = "#121418:#c94234:#85c54c:#f5ae2e:#1398b9:#d0633d:#509552:#e5c6aa:#675f54:#ff645a:#98e036:#e0d561:#5fdaff:#ff9269:#84f088:#f6f7ec"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[IC_Orange_PPL]]
+    background_color = "#262626"
+    background_darkness = 0.92
+    cursor_color = "#fc531d"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#ffcb83"
+    palette = "#000000:#c13900:#a4a900:#caaf00:#bd6d00:#fc5e00:#f79500:#ffc88a:#6a4f2a:#ff8c68:#f6ff40:#ffe36e:#ffbe55:#fc874f:#c69752:#fafaff"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[SeaShells]]
+    background_color = "#09141b"
+    background_darkness = 0.92
+    cursor_color = "#fca02f"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#deb88d"
+    palette = "#17384c:#d15123:#027c9b:#fca02f:#1e4950:#68d4f1:#50a3b5:#deb88d:#434b53:#d48678:#628d98:#fdd39f:#1bbcdd:#bbe3ee:#87acb4:#fee4ce"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Spacedust]]
+    background_color = "#0a1e24"
+    background_darkness = 0.92
+    cursor_color = "#708284"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#ecf0c1"
+    palette = "#6e5346:#e35b00:#5cab96:#e3cd7b:#0f548b:#e35b00:#06afc7:#f0f1ce:#684c31:#ff8a3a:#aecab8:#ffc878:#67a0ce:#ff8a3a:#83a7b4:#fefff1"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True
+  [[Sundried]]
+    background_color = "#1a1818"
+    background_darkness = 0.92
+    cursor_color = "#ffffff"
+    custom_command = /usr/bin/zsh
+    font = DejaVu Sans Mono 9
+    foreground_color = "#c9c9c9"
+    palette = "#302b2a:#a7463d:#587744:#9d602a:#485b98:#864651:#9c814f:#c9c9c9:#4d4e48:#aa000c:#128c21:#fc6a21:#7999f7:#fd8aa1:#fad484:#ffffff"
+    scrollback_lines = 5000
+    use_custom_command = True
+    use_system_font = False
+    visible_bell = True

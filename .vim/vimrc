@@ -1,0 +1,411 @@
+" original mapping: tse
+nnoremap jse <Plug>(vimtex-env-toggle-star)
+nnoremap jsd <Plug>(vimtex-delim-toggle-modifier)
+
+
+" --------------- Vundle -----------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+"Plugin 'vim-latex/vim-latex'
+Plugin 'lervag/vimtex'
+" Plugin 'tomtom/tcomment_vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+" Plugin 'lsdr/monokai'
+" Plugin 'sickill/vim-monokai'
+" Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-notes'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/neocomplete'
+" Plugin 'rdnetto/YCM-Generator'
+Plugin 'bjoernd/vim-ycm-tex'
+Plugin 'thanthese/Tortoise-Typing'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+" Plugin 'ervandew/supertab'
+" Plugin 'vim-scripts/TTCoach'
+Plugin 'cmci/ImageJMacro_Highlighter'
+Plugin 'ivanov/vim-ipython'
+Plugin 'tpope/vim-fugitive'
+Plugin 'JuliaLang/julia-vim'
+Plugin 'matze/vim-tex-fold'
+Plugin 'junegunn/goyo.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" --------------- End Vundle -----------------
+
+let g:ycm_path_to_python_interpreter = '/home/Niklas/programs/anaconda3/bin/python'
+
+
+"=====[ Enable Nmap command for documented mappings ]================
+runtime bundle/plugin/documap.vim
+
+
+" ================ Appearance ==================
+" set highligting when searching
+set hls
+
+syntax enable " Turn on syntax highlighting  
+colorscheme monokai
+colorscheme vorange " for some reason this one will not switch on without first
+                    " changing to another colorscheme
+set number
+set hidden " Leave hidden buffers open  
+set history=100 "by default Vim saves your last 8 commands.  We can handle more  
+set colorcolumn=80
+
+se cursorline
+
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)
+
+" Make naughty characters visible...
+" (uBB is right double angle, uB7 is middle dot)
+"set lcs=tab:⇒·,trail:␣,nbsp:~"
+"highlight InvisibleSpaces ctermfg=Black ctermbg=Black
+"call matchadd('InvisibleSpaces', '\s\+\%#', 100)
+
+
+"====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
+    "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+    "set list
+
+"set python syntax highlighting for organism files.
+au BufRead,BufNewFile *.model set filetype=python
+au BufRead,BufNewFile *.init set filetype=python
+au BufRead,BufNewFile *.rk set filetype=python
+au BufRead,BufNewFile *.rkT set filetype=python
+au BufRead,BufNewFile *.cvodeT set filetype=python
+au BufRead,BufNewFile *.cvode set filetype=python
+au BufRead,BufNewFile *.solver set filetype=python
+au BufRead,BufNewFile *.est set filetype=python
+au BufRead,BufNewFile *.opt set filetype=python
+au BufRead,BufNewFile *.cost set filetype=python
+au BufRead,BufNewFile *.costfile set filetype=python
+
+au BufRead,BufNewFile *.gnu set filetype=gnuplot
+
+" ================ Navigation  ==================
+set mouse=a
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+" make Y yank from cursor to end of line
+map Y y$
+
+" bring up command without pressing shift
+" map ; :
+"Nmap s [:] :
+nmap s :
+"noremap ;; ;
+
+command! W w
+
+"map <Right> g<Right>
+"map <Left> g<Left>
+map <Up> g<Up>
+map <Down> g<Down>
+
+set wildmenu
+set wildmode=list:longest,full
+set incsearch
+set ignorecase
+set smartcase
+set infercase
+
+set tabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+set smarttab
+
+set scrolloff=2
+
+
+"I'm sick of typing :%s/.../.../g
+"Nmap S  [Shortcut for :s///g]  :%s//g<LEFT><LEFT>
+nmap S   :%s//g<LEFT><LEFT>
+vmap S                         :s//g<LEFT><LEFT>
+
+"Nmap <expr> M  [Shortcut for :s/<last match>//g]  ':%s/' . @/ . '//g<LEFT><LEFT>'
+nmap <expr> M ':%s/' . @/ . '//g<LEFT><LEFT>'
+vmap <expr> M ':s/' . @/ . '//g<LEFT><LEFT>'
+
+
+
+"=====[ Make arrow keys move visual blocks around ]======================
+
+"vmap <up>    <Plug>SchleppUp
+"vmap <down>  <Plug>SchleppDown
+"vmap <left>  <Plug>SchleppLeft
+"vmap <right> <Plug>SchleppRight
+"
+"vmap D       <Plug>SchleppDupLeft
+"vmap <C-D>   <Plug>SchleppDupLeft
+
+" ================ Modelling =============
+command! ModelIncrementP let i=0 | %g/p_/s/p_[0-9]*/\='p_'.i / |let i=i+1
+"command! ModelOptParam let i=0 | %g/p_/s/^/\=i.' 0.1 10 # '/ | let i+=1
+command! ModelWindowOpen source ~/.vim/scripts/modellingWindows.vim
+command! ModelOptParam source ~/.vim/scripts/modellingOptParam.vim
+" ================ C++  ==================
+" enable c++ highlighting
+let g:cpp_class_scope_highlight = 1
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+
+" ================ LATEX ==================
+let g:tex_flavor = "latex"
+let g:Tex_DefaultTargetFormat="pdf"
+set grepprg=grep\ -nH\ $*
+map <F2> :w<cr><leader>ll
+
+let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
+"let g:Tex_CompileRule_pdf = 'pdflatex -interaction=nonstopmode %:r & bibtex %:r &pdflatex -synctex=1 -src-specials -interaction=nonstopmode $*'
+let g:Tex_ViewRule_pdf = 'okular --unique'
+
+
+" specific for vimtex:
+"let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_method= 'zathura'
+"let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+let g:vimtex_view_general_options = '-s'
+"let g:vimtex_view_general_options_latexmk = '--unique'
+" ====== Vimtex mappings (needed to get rid of mapping starting with t ======
+
+
+" original mapping: tse
+nmap jse <plug>(vimtex-env-toggle-star)
+nmap jsd <plug>(vimtex-delim-toggle-modifier)
+
+autocmd FileType tex unmap <buffer> tse
+autocmd FileType tex unmap <buffer> tsd
+autocmd FileType tex unmap <buffer> tsD
+autocmd FileType tex unmap <buffer> tsc
+
+
+
+
+function! WordProcessorMode()
+  setlocal noexpandtab 
+  setlocal colorcolumn=0
+  "map j gj
+  "map k gk
+  setlocal spell spelllang=en_gb
+  "set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
+  set complete+=s
+  set formatprg=par
+  setlocal wrap 
+  setlocal linebreak 
+  set autoread
+endfunction 
+com! WP call WordProcessorMode()
+
+
+function! LatexClawusAbbreviations()
+	" map abbreviations
+	call IMAP(' wus ', ' \ac{wus} ', 'tex')
+	call IMAP(' gwus ', ' \textit{\ac{wus}} ', 'tex')
+	call IMAP(' c3 ', ' \ac{c3} ', 'tex')
+	call IMAP(' gc3 ', ' \textit{\ac{c3}} ', 'tex')
+	call IMAP('clv3', '\ac{c3}', 'tex')
+	call IMAP('clv1', '\ac{c1}', 'tex')
+	call IMAP('c1', '\ac{c1}', 'tex')
+	call IMAP('crn', '\ac{crn}', 'tex')
+	call IMAP(' lird ', ' \ac{lird} ', 'tex')
+	call IMAP(' boa ', ' \ac{boa} ', 'tex')
+	call IMAP(' pboa ', ' \acp{boa} ', 'tex')
+	call IMAP(' sam ', ' \ac{sam} ', 'tex')
+	"call IMAP('sam', '\ac{sam}', 'tex')
+	"call IMAP('oc', '\ac{oc}', 'tex')
+	"call IMAP('cz', '\ac{cz}', 'tex')
+	"call IMAP('pm', '\ac{pm}', 'tex')
+endfunction
+com! LatexClawus call LatexClawusAbbreviations()
+
+
+let g:Tex_IgnoredWarnings = 
+			\"Underfull\n".
+			\"Overfull\n".
+			\"specifier changed to\n".
+			\"You have requested\n".
+			\"Missing number, treated as zero.\n".
+			\"There were undefined references\n".
+			\"Citation %.%# undefined\n".
+			\"Font Shape"
+let g:Tex_IgnoreLevel = 8
+let g:Tex_GotoError = 0
+
+"function! SyncTexForward()
+    "let s:syncfile = fnamemodify(fnameescape(Tex_GetMainFileName()), ":r").".pdf"
+    "let execstr = "silent !okular --unique ".s:syncfile."\\#src:".line(".").expand("%\:p").' &'
+    "exec execstr
+"endfunction
+
+"Nmap <Leader>f [Synctex forward] :call SyncTexForward()<CR>
+"nmap <Leader>f  :call SyncTexForward()<CR>
+" ================ Snippets ==================
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+
+" ================ Workman Keylayout ==================
+inoremap <S-Space> _
+function! Workman_minimal()
+    " (t)ill -> (j)ump
+    noremap j t
+    noremap J T
+    noremap t j
+    noremap T J
+
+    "onoremap j t
+    "onoremap J T
+    "onoremap t j
+    "onoremap T J
+
+    nnoremap t gj
+    nnoremap k gk
+
+    noremap <C-f> <C-d>
+endfunction
+
+function! Unmap_workman_minimal()
+    silent! nunmap j
+    silent! nunmap J
+    silent! nunmap t
+    silent! nunmap T
+endfunction
+
+function! Workman_home_row()
+    "(O)pen line -> (L)ine
+    nnoremap l o
+    nnoremap o l
+    nnoremap L O
+    nnoremap O L
+    "Search (N)ext -> (J)ump
+    nnoremap j n
+    nnoremap n j
+    nnoremap J N
+    nnoremap N J
+    "(E)nd of word -> brea(K) of word
+    nnoremap k e
+    nnoremap e k
+    nnoremap K E
+    nnoremap E <nop>
+    nnoremap h y
+    onoremap h y
+    "(Y)ank -> (H)aul
+    nnoremap y h
+    nnoremap H Y
+    nnoremap Y H
+endfunction
+
+function! Unmap_workman_home_row()
+    "Unmaps Workman keys
+    silent! nunmap h
+    silent! ounmap h
+    silent! nunmap j
+    silent! nunmap k
+    silent! nunmap l
+    silent! nunmap y
+    silent! nunmap n
+    silent! nunmap e
+    silent! nunmap o
+    silent! nunmap H
+    silent! nunmap J
+    silent! nunmap K
+    silent! nunmap L
+    silent! nunmap Y
+    silent! nunmap N
+    silent! nunmap E
+    silent! nunmap O
+endfunction
+
+call Workman_minimal()
+
+if has('gui_running')
+    "set guioptions-=T  " no toolbar
+  "set lines=60 columns=108 linespace=0
+  if has('gui_win32')
+    set guifont=DejaVu_Sans_Mono:h10:cANSI
+  else
+    set guifont=DejaVu\ Sans\ Mono\ 9
+  endif
+endif
+
+
+
+
+"======[ Add a Y command for incremental yank in Visual mode ]==============
+
+vnoremap <silent>       Y   <ESC>:silent let @y = @"<CR>gv"Yy:silent let @" = @y<CR>
+"nnoremap <silent>       YY  :call Incremental_YY()<CR>
+"nnoremap <silent><expr> Y         Incremental_Y()
+
+function! Incremental_YY () range
+    let @" .= join(getline(a:firstline, a:lastline), "\n") . "\n"
+endfunction
+
+function! Incremental_Y ()
+    let motion = nr2char(getchar())
+    if motion == 'Y'
+        call Incremental_YY()
+        return
+    elseif motion =~ '[ia]'
+        let motion .= nr2char(getchar())
+    elseif motion =~ '[/?]'
+        let motion .= input(motion) . "\<CR>"
+    endif
+
+    let @y = @"
+    return '"Yy' . motion . ':let @" = @y' . "\<CR>"
+endfunction
+
+
+
+"=============== source vimrc if saved =============
+augroup VimReload
+autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost ~/.vim/vimrc source ~/.vim/vimrc
+augroup END

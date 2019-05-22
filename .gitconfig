@@ -1,0 +1,24 @@
+[user]
+	name = Niklas Korsbo
+	email = niklas.korsbo@slcu.cam.ac.uk
+[push]
+	default = simple
+[color]
+	ui = auto
+[core]
+	fileMode = false
+	attributesfile = ~/.gitattributes_global
+	editor = vim
+[alias]
+	graph = log --graph --oneline --decorate
+[filter "nbstrip_full"]
+	clean = "jq --indent 1 \
+			'(.cells[] | select(has(\"outputs\")) | .outputs) = []  \
+			| (.cells[] | select(has(\"execution_count\")) | .execution_count) = null  \
+			| .metadata = {} \
+			| .cells[].metadata = {} \
+			'"
+	smudge = cat
+	required = true
+[github]
+	user = korsbo
