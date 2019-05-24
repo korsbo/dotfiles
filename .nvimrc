@@ -18,6 +18,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     let NERDTreeAutoDeleteBuffer = 1
     let NERDTreeMinimalUI = 1
     let NERDTreeDirArrows = 1
+    let NERDTreeIgnore=['\.pyc$', '\~$', '\.swp$']
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -132,16 +133,23 @@ Plug 'kassio/neoterm'
     "
     au TermOpen * tnoremap <Esc> <c-\><c-n>
     au FileType fzf silent! tunmap <Esc>
-    tnoremap <C-k> <C-w><Up>
-    tnoremap <C-l> <C-w><Right>
-    tnoremap <C-t> <C-w><Down>
-    tnoremap <C-h> <C-w><Left>
+    " tnoremap <C-k> <C-w><Up>
+    " tnoremap <C-l> <C-w><Right>
+    " tnoremap <C-t> <C-w><Down>
+    " tnoremap <C-h> <C-w><Left>
     "
     autocmd TermOpen <Buffer> setlocal scrolloff=0
     let g:neoterm_default_mod="botright"
     let g:neoterm_size=25
 " }}}
 
+Plug 'christoomey/vim-tmux-navigator'
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <c-t> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-/> :TmuxNavigatePrevious<cr>
 
 "=============================================================================="
 "=================================  Snippets  ================================="
@@ -183,6 +191,19 @@ Plug 'JuliaLang/julia-vim'
 " }}}
 
 Plug 'ivanov/vim-ipython'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+" {{{
+    let g:pymode_virtualenv=1
+" }}}
+
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"   project_base_dir = os.environ['VIRTUAL_ENV']
+"   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"   execfile(activate_this, dict(__file__=activate_this))
+" EOF
 
 Plug 'cmci/ImageJMacro_Highlighter'
 
@@ -242,6 +263,9 @@ Plug 'matze/vim-tex-fold'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 let g:cpp_class_scope_highlight = 1
+
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 "=============================================================================="
 "===================================  Misc  ==================================="
@@ -326,12 +350,12 @@ set mouse=a
 nnoremap Y y$
 
 " Quicker window navigation
-nnoremap <c-t> <c-w><Down>
-nnoremap <c-k> <c-w><Up>
-nnoremap <c-h> <c-w><Left>
-nnoremap <c-l> <c-w><Right>
+" nnoremap <c-t> <c-w><Down>
+" nnoremap <c-k> <c-w><Up>
+" nnoremap <c-h> <c-w><Left>
+" nnoremap <c-l> <c-w><Right>
 
-nnoremap <C-/> :Commentary
+" nnoremap <C-/> :Commentary
 
 " bring up command without pressing shift
 " map ; :
@@ -351,7 +375,7 @@ nmap <leader>8 8gt
 nmap <leader>9 9gt
 
 " Close a buffer without closing the window.
-map <leader>q :b#|bd#
+map <leader>q :b#|bd#<cr>
 
 "map <Right> g<Right>
 "map <Left> g<Left>
