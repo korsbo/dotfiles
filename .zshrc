@@ -138,3 +138,5 @@ export PATH=$PATH:$HOME/.local/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias config='/usr/bin/git --git-dir=/home/Niklas/.cfg/ --work-tree=/home/Niklas'
+alias svim='nvim -u ~/.SpaceVim/vimrc'
+export SHELL="/usr/bin/zsh"
