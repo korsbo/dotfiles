@@ -20,7 +20,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     let NERDTreeDirArrows = 1
     let NERDTreeIgnore=['\.pyc$', '\~$', '\.swp$']
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 set rtp+=~/.fzf
@@ -57,6 +57,9 @@ nnoremap <silent> <leader>e :ArgWrap<CR>
 Plug 'nathanaelkane/vim-indent-guides'
 " Status bar 
 Plug 'vim-airline/vim-airline'
+Plug 'machakann/vim-highlightedyank'
+Plug 'korsbo/srcery-vim'
+Plug 'morhetz/gruvbox'
 
 "=============================================================================="
 "=======================  Asynchronous code completion  ======================="
@@ -93,7 +96,8 @@ Plug 'autozimu/LanguageClient-neovim', {
         \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
         \       server.runlinter = true;
         \       run(server);
-        \   ']
+        \   '],
+        \   'python': ['pyls',]
         \ }
 
     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -119,8 +123,8 @@ Plug 'kassio/neoterm'
     nnoremap <silent> <leader>aa :w<cr>:T includet("%")<cr>
     nnoremap <silent> <leader>ae :w<cr>:TREPLSendFile<cr>
     " - send *p*aragraph (cursor location changes)
-    nnoremap <silent> <leader>pp mavip:TREPLSendLine<cr><esc>`a
-    nnoremap <silent> <leader>pd vip:TREPLSendLine<cr><esc>}
+    nnoremap <silent> <leader>pp mavap:TREPLSendLine<cr><esc>`a
+    nnoremap <silent> <leader>pd vap:TREPLSendLine<cr><esc>}
     " - send *s*election (cursor location changes)
     vnoremap <silent> <leader>ss :TREPLSendSelection<cr>
     vnoremap <silent> <leader>l :TREPLSendSelection<cr>
@@ -131,7 +135,12 @@ Plug 'kassio/neoterm'
     nnoremap <silent> <leader>d :TREPLSendLine<cr>j
     "
     "
-    au TermOpen * tnoremap <Esc> <c-\><c-n>
+    tnoremap <Esc> <c-\><c-n>
+    tnoremap <C-Esc> <Esc>
+    tnoremap <C-k> <c-\><c-n><c-w>k
+    tnoremap <C-t> <c-\><c-n><c-w>t
+    tnoremap <C-h> <c-\><c-n><c-w>h
+    tnoremap <C-l> <c-\><c-n><c-w>l
     au FileType fzf silent! tunmap <Esc>
     " tnoremap <C-k> <C-w><Up>
     " tnoremap <C-l> <C-w><Right>
@@ -292,6 +301,10 @@ nmap <leader>w :ProseMode<CR>
 
 "
 call plug#end()            " required
+"=============================================================================="
+"==============================  End of plugins  =============================="
+"=============================================================================="
+
 filetype plugin indent on    " required
 filetype plugin on
 
@@ -309,14 +322,19 @@ call deoplete#custom#var('omni', 'input_patterns', {
 runtime bundle/plugin/documap.vim
 runtime macros/matchit.vim
 
-" ================ Appearance ==================
-" set highligting when searching
+
+"=============================================================================="
+"================================  Appearance  ================================"
+"=============================================================================="
+
+" set highlighting when searching
 set hls
 
-
 syntax enable " Turn on syntax highlighting  
-colorscheme monokai
-colorscheme vorange " for some reason this one will not switch on without first
+set termguicolors
+" colorscheme monokai
+colorscheme srcery
+" colorscheme vorange " for some reason this one will not switch on without first
 " changing to another colorscheme
 set number
 set hidden " Leave hidden buffers open  
@@ -324,11 +342,15 @@ set history=100
 set colorcolumn=80
 set cursorline
 
-command DoMatchParen
+silent! command DoMatchParen
 
 " Mute the background color of unfocused window panes.
 hi ActiveWindow ctermbg=16 | hi InactiveWindow ctermbg=236
 set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+
+if has('nvim')
+    set inccommand=split
+end
 
 
 
@@ -338,22 +360,14 @@ set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
 
 au BufRead,BufNewFile *.gnu set filetype=gnuplot
 
-" ================ Navigation  ==================
+"=============================================================================="
+"================================  Navigation  ================================"
+"=============================================================================="
 
 set mouse=a
 
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'a'
-
 " make Y yank from cursor to end of line
 nnoremap Y y$
-
-" Quicker window navigation
-" nnoremap <c-t> <c-w><Down>
-" nnoremap <c-k> <c-w><Up>
-" nnoremap <c-h> <c-w><Left>
-" nnoremap <c-l> <c-w><Right>
 
 " nnoremap <C-/> :Commentary
 
@@ -375,15 +389,19 @@ nmap <leader>8 8gt
 nmap <leader>9 9gt
 
 " Close a buffer without closing the window.
-map <leader>q :b#|bd#<cr>
+map <leader>q :b#<cr>:bd#<cr>
 
 "map <Right> g<Right>
 "map <Left> g<Left>
 map <Up> g<Up>
 map <Down> g<Down>
 
-" ================ Editing  ==================
-"
+" I'm too much of a config junkie to have to type this out.
+command! R e ~/.nvimrc
+
+"=============================================================================="
+"=================================  Editing  =================================="
+"=============================================================================="
 " Save me from my frequent but never ambiguous typos.
 iabbrev teh the
 iabbrev Teh The
@@ -398,6 +416,8 @@ vmap S                         :s//g<LEFT><LEFT>
 "Nmap <expr> M  [Shortcut for :s/<last match>//g]  ':%s/' . @/ . '//g<LEFT><LEFT>'
 nmap <expr> M ':%s/' . @/ . '//g<LEFT><LEFT>'
 vmap <expr> M ':s/' . @/ . '//g<LEFT><LEFT>'
+
+vnoremap <leader>S "hy:%s/<C-r>h//g<left><left><left>
 
 
 " Let Y in visual append clipboard rather than replace.
@@ -427,7 +447,7 @@ set shiftround
 set expandtab
 set smarttab
 
-set scrolloff=5
+set scrolloff=10
 set undolevels=5000
 set clipboard=unnamed,unnamedplus
 set lazyredraw
@@ -438,8 +458,6 @@ set showcmd
 
 command! W w
 command! Q q
-
-
 
 set shell=/usr/bin/zsh
 
