@@ -116,47 +116,73 @@ Plug 'autozimu/LanguageClient-neovim', {
 "=============================================================================="
 "=============================  Terminal support  ============================="
 "=============================================================================="
-Plug 'kassio/neoterm' 
+"Plug 'kassio/neoterm' 
+"" {{{
+"    " - *c*lear, *c*trl-c, workspace *c*ommand
+"    nnoremap <silent> <leader>cl :call neoterm#clear()<cr>
+"    nnoremap <silent> <leader>cc :call neoterm#kill()<cr>
+"    nnoremap <silent> <leader>cw :call neoterm#do("workspace()")<cr>
+"    " - show *j*ulia @doc, show(info)
+"    " nnoremap <silent> <localleader>jd :Texec ("@doc " . expand("<cword>"))<cr>
+"    " nnoremap <silent> <localleader>je :call neoterm#do("@edit " . expand("<cword>"))<cr>
+"    " nnoremap <silent> <localleader>ji :call neoterm#do(expand("<cword>"))<cr>
+"    " - send *a*ll, i.e. file
+"    nnoremap <silent> <leader>aa :w<cr>:T includet("%")<cr>
+"    nnoremap <silent> <leader>ae :w<cr>:TREPLSendFile<cr>
+"    " - send *p*aragraph (cursor location changes)
+"    nnoremap <silent> <leader>pp mavap:TREPLSendLine<cr><esc>`a
+"    nnoremap <silent> <leader>pd vap:TREPLSendLine<cr><esc>}
+"    " - send *s*election (cursor location changes)
+"    vnoremap <silent> <leader>ss :TREPLSendSelection<cr>
+"    vnoremap <silent> <leader>l :TREPLSendSelection<cr>
+"    vnoremap <silent> <leader>sd :TREPLSendSelection<cr>j
+"    vnoremap <silent> <leader>d :TREPLSendSelection<cr>j
+"    " - send *l*ine, optionally go *d*own
+"    nnoremap <silent> <leader>l :TREPLSendLine<cr>
+"    nnoremap <silent> <leader>d :TREPLSendLine<cr>j
+"    "
+"    "
+"    tnoremap <Esc> <c-\><c-n>
+"    tnoremap <C-Esc> <Esc>
+"    tnoremap <C-k> <c-\><c-n><c-w>k
+"    tnoremap <C-t> <c-\><c-n><c-w>t
+"    tnoremap <C-h> <c-\><c-n><c-w>h
+"    tnoremap <C-l> <c-\><c-n><c-w>l
+"    au FileType fzf silent! tunmap <Esc>
+"    " tnoremap <C-k> <C-w><Up>
+"    " tnoremap <C-l> <C-w><Right>
+"    " tnoremap <C-t> <C-w><Down>
+"    " tnoremap <C-h> <C-w><Left>
+"    "
+"    autocmd TermOpen <Buffer> setlocal scrolloff=0
+"    let g:neoterm_default_mod="belowright"
+"    let g:neoterm_size=25
+"" }}}
+
+Plug 'benmills/vimux'
+Plug 'julienr/vimux-pyutils'
 " {{{
-    " - *c*lear, *c*trl-c, workspace *c*ommand
-    nnoremap <silent> <leader>cl :call neoterm#clear()<cr>
-    nnoremap <silent> <leader>cc :call neoterm#kill()<cr>
-    nnoremap <silent> <leader>cw :call neoterm#do("workspace()")<cr>
-    " - show *j*ulia @doc, show(info)
-    " nnoremap <silent> <localleader>jd :Texec ("@doc " . expand("<cword>"))<cr>
-    " nnoremap <silent> <localleader>je :call neoterm#do("@edit " . expand("<cword>"))<cr>
-    " nnoremap <silent> <localleader>ji :call neoterm#do(expand("<cword>"))<cr>
-    " - send *a*ll, i.e. file
-    nnoremap <silent> <leader>aa :w<cr>:T includet("%")<cr>
-    nnoremap <silent> <leader>ae :w<cr>:TREPLSendFile<cr>
+    map <leader>vp :VimuxPromptCommand<CR>
+    map <leader>vr :VimuxRunCommand<CR>
+    map <leader>vi :VimuxInspectRunner<CR>
+" }}}
+Plug 'epeli/slimux'
+" {{{
+    " nnoremap <silent> <leader>aa :w<cr>:SlimuxShellRun includet(\"\%\")<cr>
+    nnoremap <silent> <leader>ae :w<cr>:SlimuxREPLSendBuffer<cr>
     " - send *p*aragraph (cursor location changes)
-    nnoremap <silent> <leader>pp mavap:TREPLSendLine<cr><esc>`a
-    nnoremap <silent> <leader>pd vap:TREPLSendLine<cr><esc>}
+    nnoremap <silent> <leader>pp mavap:SlimuxREPLSendSelection<cr><esc>`a
+    " au FileType julia <buffer> nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>v`b<esc>:SlimuxREPLSendSelection<cr><esc>`a
+    " nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>V`b:SlimuxREPLSendSelection<cr><esc>`a
+    nnoremap <silent> <leader>pd vap:SlimuxREPLSendSelection<cr><esc>}
     " - send *s*election (cursor location changes)
-    vnoremap <silent> <leader>ss :TREPLSendSelection<cr>
-    vnoremap <silent> <leader>l :TREPLSendSelection<cr>
-    vnoremap <silent> <leader>sd :TREPLSendSelection<cr>j
-    vnoremap <silent> <leader>d :TREPLSendSelection<cr>j
+    vnoremap <silent> <leader>ss :SlimuxREPLSendSelection<cr>
+    vnoremap <silent> <leader>l :SlimuxREPLSendSelection<cr>
+    vnoremap <silent> <leader>sd :SlimuxREPLSendSelection<cr>j
+    vnoremap <silent> <leader>d :SlimuxREPLSendSelection<cr>j
     " - send *l*ine, optionally go *d*own
-    nnoremap <silent> <leader>l :TREPLSendLine<cr>
-    nnoremap <silent> <leader>d :TREPLSendLine<cr>j
-    "
-    "
-    tnoremap <Esc> <c-\><c-n>
-    tnoremap <C-Esc> <Esc>
-    tnoremap <C-k> <c-\><c-n><c-w>k
-    tnoremap <C-t> <c-\><c-n><c-w>t
-    tnoremap <C-h> <c-\><c-n><c-w>h
-    tnoremap <C-l> <c-\><c-n><c-w>l
-    au FileType fzf silent! tunmap <Esc>
-    " tnoremap <C-k> <C-w><Up>
-    " tnoremap <C-l> <C-w><Right>
-    " tnoremap <C-t> <C-w><Down>
-    " tnoremap <C-h> <C-w><Left>
-    "
-    autocmd TermOpen <Buffer> setlocal scrolloff=0
-    let g:neoterm_default_mod="belowright"
-    let g:neoterm_size=25
+    nnoremap <silent> <leader>l :SlimuxREPLSendLine<cr>
+    nnoremap <silent> <leader>d :SlimuxREPLSendLine<cr>j
 " }}}
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -206,7 +232,7 @@ Plug 'JuliaLang/julia-vim'
     au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
 " }}}
 
-Plug 'ivanov/vim-ipython'
+" Plug 'ivanov/vim-ipython'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " {{{
     let g:pymode_virtualenv=1
