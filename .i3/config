@@ -255,8 +255,12 @@ bindsym Control+mod1+l exec i3lock -c 000000
 
 for_window [class="gksqt"] floating enable, move to workspace number 6
 for_window [class="Eog"] move to workspace number 6
+for_window [class="MATLAB R2018b - academic use"] floating enable, move to workspace number 6
+ 
 
 # Autostarts
 # autostart.sh contains the change of keyboard layout to workman.
 exec --no-startup-id dropbox start
 exec ~/.i3/autostart.sh
+exec setxkbmap us intl
+exec xmodmap ~/.xmodmap
