@@ -1,6 +1,6 @@
-case $(uname -a) in
-   *Microsoft*) unsetopt BG_NICE ;;
-esac
+# case $(uname -a) in
+#    *Microsoft*) unsetopt BG_NICE ;;
+# esac
 
 #bindkey -v
 export KEYTIMEOUT=1
@@ -9,23 +9,6 @@ export KEYTIMEOUT=1
 
 source ~/.antigen/antigen/antigen.zsh
  
-antigen use oh-my-zsh
-antigen theme avit
-
-antigen bundle history
-antigen bundle z
-antigen bundle git
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle vi-mode
-antigen bundle safe-paste
-
-
-antigen apply
-
-bindkey '\e[A' history-beginning-search-backward
-bindkey '\e[B' history-beginning-search-forward
 
 # Load the oh-my-zsh's library.
 
@@ -35,7 +18,7 @@ bindkey '\e[B' history-beginning-search-forward
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-# ZSH_THEME="avit"
+ZSH_THEME="avit"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -85,9 +68,8 @@ alias g="gvim --remote-silent"
 alias l="ls -v"
 alias acs="apt-cache search"
 
-alias ros="cd ~/home3/projects/ros_adaptation/"
+alias ros="cd ~/home3/projects/FLS2.jl/"
 alias clv="cd ~/home3/projects/clv1_precise_adaptation/"
-alias lib="cd ~/.julia/v0.6/Libs/"
 alias proj="cd ~/home3/projects/"
 
 #source ~/.openalea.sh
@@ -102,3 +84,24 @@ alias svim='nvim -u ~/.SpaceVim/vimrc'
 export SHELL="$(which zsh)"
 export EDITOR="$(which nvim)"
 
+
+antigen use oh-my-zsh
+
+source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
+
+antigen bundle history
+antigen bundle z
+antigen bundle git
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle vi-mode
+antigen bundle safe-paste
+# antigen bundle pip
+
+# antigen theme avit
+
+antigen apply
+
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
