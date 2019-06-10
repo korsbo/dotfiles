@@ -24,6 +24,8 @@
     enable_tabline_filetype_icon = true
     enable_statusline_mode = false
     snippet_engine = "ultisnips"
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
 
 # Enable autocomplete layer
 [[layers]]
@@ -33,7 +35,7 @@ auto-completion-tab-key-behavior = "smart"
 
 [[layers]]
 name = 'shell'
-default_position = 'top'
+default_position = 'bottom'
 default_height = 30 
 
 [[layers]]
