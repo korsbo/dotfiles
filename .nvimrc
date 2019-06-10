@@ -4,7 +4,7 @@ let g:python3_host_prog = "/home/Niklas/programs/anaconda3/envs/py37/bin/python"
 
 
 set nocompatible              " be iMproved, required
-filetype off                  " required
+" filetype off                  " required
 
 call plug#begin('~/.local/share/nvim/plugged')
 "=============================================================================="
@@ -66,7 +66,6 @@ Plug 'morhetz/gruvbox'
 "=============================================================================="
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/deoplete.nvim'
   Plug 'deoplete-plugins/deoplete-zsh'
   Plug 'deoplete-plugins/deoplete-jedi'
 else
@@ -76,6 +75,14 @@ else
 endif
 " {{{
     let g:deoplete#enable_at_startup = 1
+    function g:Multiple_cursors_before()
+        call deoplete#custom#buffer_option('auto_complete', v:false)
+    endfunction
+    function g:Multiple_cursors_after()
+        call deoplete#custom#buffer_option('auto_complete', v:true)
+    endfunction
+    call deoplete#custom#source('ultisnips', 'rank', 1000)
+    autocmd FileType tex call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 " }}}
 
 Plug 'autozimu/LanguageClient-neovim', {
@@ -148,7 +155,7 @@ Plug 'kassio/neoterm'
     " tnoremap <C-h> <C-w><Left>
     "
     autocmd TermOpen <Buffer> setlocal scrolloff=0
-    let g:neoterm_default_mod="botright"
+    let g:neoterm_default_mod="belowright"
     let g:neoterm_size=25
 " }}}
 
@@ -213,6 +220,9 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 "   activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
 "   execfile(activate_this, dict(__file__=activate_this))
 " EOF
+"
+
+Plug 'w0rp/ale'
 
 Plug 'cmci/ImageJMacro_Highlighter'
 
@@ -305,8 +315,8 @@ call plug#end()            " required
 "==============================  End of plugins  =============================="
 "=============================================================================="
 
-filetype plugin indent on    " required
-filetype plugin on
+" filetype plugin indent on    " required
+" filetype plugin on
 
 call deoplete#enable()
 call deoplete#custom#source('_',
@@ -330,7 +340,7 @@ runtime macros/matchit.vim
 " set highlighting when searching
 set hls
 
-syntax enable " Turn on syntax highlighting  
+" syntax enable " Turn on syntax highlighting  
 set termguicolors
 " colorscheme monokai
 colorscheme srcery
