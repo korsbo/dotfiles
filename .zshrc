@@ -1,9 +1,31 @@
+case $(uname -a) in
+   *Microsoft*) unsetopt BG_NICE ;;
+esac
+
 #bindkey -v
 export KEYTIMEOUT=1
 # Path to your oh-my-zsh installation.
 #export ZSH=/home/Niklas/.oh-my-zsh
 
 source ~/.antigen/antigen/antigen.zsh
+ 
+antigen use oh-my-zsh
+antigen theme avit
+
+antigen bundle history
+antigen bundle z
+antigen bundle git
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle vi-mode
+antigen bundle safe-paste
+
+
+antigen apply
+
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward
 
 # Load the oh-my-zsh's library.
 
@@ -13,8 +35,7 @@ source ~/.antigen/antigen/antigen.zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="avit"
-#ZSH_THEME="avit"
+# ZSH_THEME="avit"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -44,28 +65,7 @@ COMPLETION_WAITING_DOTS="true"
 # if a command starts with a space, do not add it to the command history.
 setopt HIST_IGNORE_SPACE
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
 DEBIAN_PREVENT_KEYBOARD_CHANGES="true"
-
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-#plugins=(safe-paste, vi-mode, git, z, history)
-#plugins=(vi-mode, git, z)
 
 # User configuration
 
@@ -76,10 +76,6 @@ export PATH="/home/Niklas/programs/anaconda3/bin:/nfs/bin:/home/Niklas/master/sc
 # export MANPATH="/usr/local/man:$MANPATH"
 export PYTHONPATH=$PYTHONPATH:"/home/Niklas/home3/lib/python"
 
-#source $ZSH/oh-my-zsh.sh
-antigen use oh-my-zsh
-
-source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
 
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
@@ -94,42 +90,6 @@ alias clv="cd ~/home3/projects/clv1_precise_adaptation/"
 alias lib="cd ~/.julia/v0.6/Libs/"
 alias proj="cd ~/home3/projects/"
 
-
-antigen bundle history
-antigen bundle z
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle vi-mode
-antigen bundle safe-paste
-
-
-
-
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 #source ~/.openalea.sh
 export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
@@ -137,6 +97,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/programs/timagetk/timagetk/build-s
 export PATH=$PATH:$HOME/.local/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias config='/usr/bin/git --git-dir=/home/Niklas/.cfg/ --work-tree=/home/Niklas'
+alias config='/usr/bin/git --git-dir=$(echo ~)/.cfg/ --work-tree=$(echo ~)'
 alias svim='nvim -u ~/.SpaceVim/vimrc'
 export SHELL="/usr/bin/zsh"
+
