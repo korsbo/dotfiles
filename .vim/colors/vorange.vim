@@ -24,6 +24,32 @@ let s:key2     = ["#FBB829", 3]
 let s:string   = ["#98BC37", 10]
 let s:special  = ["#5573A3", 4]
 
+" Setup Neoterm:
+" if has('nvim')
+"   let g:terminal_color_0 = s:bg[0]
+"   let g:terminal_color_8 = s:bg2[0]
+
+"   let g:terminal_color_1 = s:fg[0]
+"   let g:terminal_color_9 = s:muted[0]
+
+"   let g:terminal_color_2 = s:key1[0]
+"   let g:terminal_color_10 = s:key1[0]
+
+"   let g:terminal_color_3 = s:[0]
+"   let g:terminal_color_11 = s:bright_yellow[0]
+
+"   let g:terminal_color_4 = s:blue[0]
+"   let g:terminal_color_12 = s:bright_blue[0]
+
+"   let g:terminal_color_5 = s:magenta[0]
+"   let g:terminal_color_13 = s:bright_magenta[0]
+
+"   let g:terminal_color_6 = s:cyan[0]
+"   let g:terminal_color_14 = s:bright_cyan[0]
+
+"   let g:terminal_color_7 = s:white[0]
+"   let g:terminal_color_15 = s:bright_white[0]
+" endif
 
 " Setup Variables:
 
