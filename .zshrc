@@ -97,7 +97,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/programs/timagetk/timagetk/build-s
 export PATH=$PATH:$HOME/.local/bin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias config='/usr/bin/git --git-dir=$(echo ~)/.cfg/ --work-tree=$(echo ~)'
+alias config='$(which git) --git-dir=$(echo ~)/.cfg/ --work-tree=$(echo ~)'
 alias svim='nvim -u ~/.SpaceVim/vimrc'
-export SHELL="/usr/bin/zsh"
+export SHELL="$(which zsh)"
+export EDITOR="$(which nvim)"
 
