@@ -8,7 +8,7 @@
 [core]
 	fileMode = false
 	attributesfile = ~/.gitattributes_global
-	editor = vim
+	editor = nvim
 [alias]
 	graph = log --graph --oneline --decorate
 [filter "nbstrip_full"]
