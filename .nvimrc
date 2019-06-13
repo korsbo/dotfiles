@@ -19,6 +19,10 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
     let NERDTreeMinimalUI = 1
     let NERDTreeDirArrows = 1
     let NERDTreeIgnore=['\.pyc$', '\~$', '\.swp$']
+    let NERDTreeMouseMode = 2 
+    let NERDTreeNaturalSort = 1 
+    let NERDTreeShowBookmarks = 1 
+    let NERDTreeShowHidden = 1 
     autocmd StdinReadPre * let s:std_in=1
     " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -51,6 +55,8 @@ Plug 'FooSoft/vim-argwrap'
 autocmd FileType julia let b:argwrap_tail_comma=1
 nnoremap <silent> <leader>e :ArgWrap<CR>
 
+" Expand the ability to use text-object operations.
+Plug 'jeanCarloMachado/vim-toop'
 "=============================================================================="
 "================================  Appearance  ================================"
 "=============================================================================="
@@ -60,6 +66,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'machakann/vim-highlightedyank'
 Plug 'korsbo/srcery-vim'
 Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons'
 
 "=============================================================================="
 "=======================  Asynchronous code completion  ======================="
@@ -75,12 +82,12 @@ else
 endif
 " {{{
     let g:deoplete#enable_at_startup = 1
-    function g:Multiple_cursors_before()
-        call deoplete#custom#buffer_option('auto_complete', v:false)
-    endfunction
-    function g:Multiple_cursors_after()
-        call deoplete#custom#buffer_option('auto_complete', v:true)
-    endfunction
+    " function! Multiple_cursors_before()
+    "     call deoplete#custom#buffer_option('auto_complete', v:false)
+    " endfunction
+    " function! Multiple_cursors_after()
+    "     call deoplete#custom#buffer_option('auto_complete', v:true)
+    " endfunction
     call deoplete#custom#source('ultisnips', 'rank', 1000)
     autocmd FileType tex call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 " }}}
@@ -177,12 +184,13 @@ Plug 'epeli/slimux'
     nnoremap <silent> <leader>pd vap:SlimuxREPLSendSelection<cr><esc>}
     " - send *s*election (cursor location changes)
     vnoremap <silent> <leader>ss :SlimuxREPLSendSelection<cr>
-    vnoremap <silent> <leader>l :SlimuxREPLSendSelection<cr>
+    vnoremap <silent> <leader>l ma:SlimuxREPLSendSelection<cr>`a
     vnoremap <silent> <leader>sd :SlimuxREPLSendSelection<cr>j
     vnoremap <silent> <leader>d :SlimuxREPLSendSelection<cr>j
     " - send *l*ine, optionally go *d*own
     nnoremap <silent> <leader>l :SlimuxREPLSendLine<cr>
     nnoremap <silent> <leader>d :SlimuxREPLSendLine<cr>j
+    let g:slimux_select_from_current_window=1
 " }}}
 
 Plug 'christoomey/vim-tmux-navigator'
@@ -289,6 +297,8 @@ Plug 'lervag/vimtex'
     autocmd FileType tex inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
     autocmd FileType tex setlocal whichwrap=b,s,h,l,<,>
 
+    autocmd FileType tex inoremap <buffer> <C-e> <plug>(vimtex-delim-close)
+
 
     let g:Tex_IgnoredWarnings = 
         \"Underfull\n".
@@ -373,6 +383,7 @@ colorscheme srcery
 " colorscheme vorange " for some reason this one will not switch on without first
 " changing to another colorscheme
 set number
+set relativenumber
 set hidden " Leave hidden buffers open  
 set history=100 
 set colorcolumn=80
@@ -469,6 +480,8 @@ nnoremap <leader>= mj:g/^[^#]/s/\s*\([^a-zA-Z0-9)}\]]*=\)\s*/ \1 /g<cr>:nohls<cr
 
 
 " ================ Settings  ==================
+set encoding=UTF-8
+
 set wildmenu
 set wildmode=list:longest,full
 set incsearch
@@ -512,6 +525,9 @@ set shell=/usr/bin/zsh
 " set grepprg=grep\ -nH\ $*
 
 
+function! SentenceFormatting(start, end)
+    silent execute a:start.','.a:end.'s/[.!?]\zs /\r/g'
+endfunction
 
 function! SentenceBreakOut()
     execute "normal! l("
