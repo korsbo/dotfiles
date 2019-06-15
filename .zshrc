@@ -1,6 +1,6 @@
-# case $(uname -a) in
-#    *Microsoft*) unsetopt BG_NICE ;;
-# esac
+case $(uname -a) in
+   *Microsoft*) unsetopt BG_NICE ;;
+esac
 
 #bindkey -v
 export KEYTIMEOUT=1
@@ -87,7 +87,8 @@ export EDITOR="$(which nvim)"
 
 antigen use oh-my-zsh
 
-source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
+# source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
+source ~/.antigen/bundles/robbyrussell/oh-my-zsh/oh-my-zsh.sh
 
 antigen bundle history
 antigen bundle z
