@@ -5,7 +5,7 @@ esac
 #bindkey -v
 export KEYTIMEOUT=1
 # Path to your oh-my-zsh installation.
-#export ZSH=/home/Niklas/.oh-my-zsh
+#export ZSH=${HOME}/.oh-my-zsh
 
 source ~/.antigen/antigen/antigen.zsh
  
@@ -52,12 +52,12 @@ DEBIAN_PREVENT_KEYBOARD_CHANGES="true"
 
 # User configuration
 
-# export PATH="/home/Niklas/programs/anaconda3/bin:/nfs/bin:/home/Niklas/master/scripts:/home/Niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/home/Niklas/projects/images/scripts:/home/Niklas/programs/clang/clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04/bin"
-export PATH="/home/Niklas/programs/anaconda3/bin:/nfs/bin:/home/Niklas/master/scripts:/home/Niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/home/Niklas/projects/images/scripts"
+# export PATH="${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts:${HOME}/programs/clang/clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04/bin"
+export PATH="${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts"
 
 # export PATH="/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/usr/lib64/mpi/gcc/openmpi/bin:/home/william/b13_niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PYTHONPATH=$PYTHONPATH:"/home/Niklas/home3/lib/python"
+export PYTHONPATH=$PYTHONPATH:"${HOME}/home3/lib/python"
 
 
 export HISTSIZE=32768;
