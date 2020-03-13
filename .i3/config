@@ -546,8 +546,8 @@ bindsym $mod+i mode "normal"
 # font pango:Ubuntu Mono 9
 # bindsym Control+mod1+l exec i3lock -c 000000
 
-for_window [class="gksqt"] floating enable, move to workspace number 6
-for_window [class="Eog"] move to workspace number 6
-for_window [class="MATLAB R2018b - academic use"] floating enable, move to workspace number 6
+# for_window [class="gksqt"] floating enable, move to workspace number 6
+# for_window [class="Eog"] move to workspace number 6
+# for_window [class="MATLAB R2018b - academic use"] floating enable, move to workspace number 6
  
 
