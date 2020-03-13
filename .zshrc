@@ -1,13 +1,13 @@
-# case $(uname -a) in
-#    *Microsoft*) unsetopt BG_NICE ;;
-# esac
+case $(uname -a) in
+   *Microsoft*) unsetopt BG_NICE ;;
+esac
 
 
 
 #bindkey -v
 export KEYTIMEOUT=1
 # Path to your oh-my-zsh installation.
-#export ZSH=/home/Niklas/.oh-my-zsh
+#export ZSH=${HOME}/.oh-my-zsh
 
 source ~/.antigen/antigen/antigen.zsh
  
@@ -59,12 +59,11 @@ DEBIAN_PREVENT_KEYBOARD_CHANGES="true"
 # fi
 
 
-# export PATH="/home/Niklas/programs/anaconda3/bin:/nfs/bin:/home/Niklas/master/scripts:/home/Niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/home/Niklas/projects/images/scripts:/home/Niklas/programs/clang/clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04/bin"
-export PATH="/home/Niklas/programs/node-v10.16.0-linux-x64/bin:/home/Niklas/programs/anaconda3/bin:/nfs/bin:/home/Niklas/master/scripts:/home/Niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/home/Niklas/projects/images/scripts"
+export PATH="${HOME}/programs/node-v10.16.0-linux-x64/bin:${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts"
 
 # export PATH="/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/usr/lib64/mpi/gcc/openmpi/bin:/home/william/b13_niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PYTHONPATH=$PYTHONPATH:"/home/Niklas/home3/lib/python"
+export PYTHONPATH=$PYTHONPATH:"${HOME}/home3/lib/python"
 
 
 export HISTSIZE=32768;
@@ -94,7 +93,8 @@ export EDITOR="$(which nvim)"
 
 antigen use oh-my-zsh
 
-source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
+# source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh.git/oh-my-zsh.sh
+source ~/.antigen/bundles/robbyrussell/oh-my-zsh/oh-my-zsh.sh
 
 antigen bundle history
 antigen bundle z
