@@ -57,6 +57,19 @@ nnoremap <silent> <leader>e :ArgWrap<CR>
 
 " Expand the ability to use text-object operations.
 Plug 'jeanCarloMachado/vim-toop'
+
+Plug 'kana/vim-textobj-user'
+"{{{
+  call textobj#user#plugin(
+\   'runblock',
+\   {
+\       'block': {
+\           'pattern' : ['#<<', '#>>'], 
+\           'select-a': 'ao',
+\           'select-i': 'io',
+\       }
+\   })
+"}}}
 "=============================================================================="
 "================================  Appearance  ================================"
 "=============================================================================="
@@ -68,13 +81,13 @@ Plug 'korsbo/srcery-vim'
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 
-"=============================================================================="
-"=======================  Asynchronous code completion  ======================="
-"=============================================================================="
+""=============================================================================="
+""=======================  Asynchronous code completion  ======================="
+""=============================================================================="
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'deoplete-plugins/deoplete-zsh'
-  Plug 'deoplete-plugins/deoplete-jedi'
+  " Plug 'deoplete-plugins/deoplete-zsh'
+  " Plug 'deoplete-plugins/deoplete-jedi'
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
@@ -88,36 +101,16 @@ endif
     " function! Multiple_cursors_after()
     "     call deoplete#custom#buffer_option('auto_complete', v:true)
     " endfunction
-    call deoplete#custom#source('ultisnips', 'rank', 1000)
     autocmd FileType tex call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
 " }}}
+
+" Use release branch
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
       \ }
-" {{{
-    let g:LanguageClient_autoStart = 1
-    let g:LanguageClient_serverCommands = {
-        \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
-        \       using LanguageServer;
-        \       using Pkg;
-        \       import StaticLint;
-        \       import SymbolServer;
-        \       env_path = dirname(Pkg.Types.Context().env.project_file);
-        \       debug = false; 
-        \       
-        \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
-        \       server.runlinter = true;
-        \       run(server);
-        \   '],
-        \   'python': ['pyls',]
-        \ }
-
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-" }}}
 
 
 "=============================================================================="
@@ -175,21 +168,29 @@ Plug 'julienr/vimux-pyutils'
 " }}}
 Plug 'epeli/slimux'
 " {{{
-    " nnoremap <silent> <leader>aa :w<cr>:SlimuxShellRun includet(\"\%\")<cr>
-    nnoremap <silent> <leader>ae :w<cr>:SlimuxREPLSendBuffer<cr>
+        " nnoremap <silent> <leader>aa :w<cr>:SlimuxShellRun includet(\"\%\")<cr>
+    " nnoremap <silent> <leader>ae :w<cr>:SlimuxREPLSendBuffer<cr>
     " - send *p*aragraph (cursor location changes)
-    nnoremap <silent> <leader>pp mavap:SlimuxREPLSendSelection<cr><esc>`a
-    " au FileType julia <buffer> nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>v`b<esc>:SlimuxREPLSendSelection<cr><esc>`a
-    " nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>V`b:SlimuxREPLSendSelection<cr><esc>`a
-    nnoremap <silent> <leader>pd vap:SlimuxREPLSendSelection<cr><esc>}
+    " nnoremap <silent> <leader>pp mavap:SlimuxREPLSendSelection<cr><esc>`a
+        " au FileType julia <buffer> nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>v`b<esc>:SlimuxREPLSendSelection<cr><esc>`a
+        " nnoremap <silent> <leader>pp ma:call julia_blocks#moveblock_p()<cr>mb:call julia_blocks#moveblock_N()<cr>V`b:SlimuxREPLSendSelection<cr><esc>`a
+    " nnoremap <silent> <leader>pd vap:SlimuxREPLSendSelection<cr><esc>}
     " - send *s*election (cursor location changes)
-    vnoremap <silent> <leader>ss :SlimuxREPLSendSelection<cr>
-    vnoremap <silent> <leader>l ma:SlimuxREPLSendSelection<cr>`a
-    vnoremap <silent> <leader>sd :SlimuxREPLSendSelection<cr>j
-    vnoremap <silent> <leader>d :SlimuxREPLSendSelection<cr>j
+    " vnoremap <silent> <leader>ss :SlimuxREPLSendSelection<cr>
+    " vnoremap <silent> <leader>l ma:SlimuxREPLSendSelection<cr>`a
+    " vnoremap <silent> <leader>sd :SlimuxREPLSendSelection<cr>j
+    " vnoremap <silent> <leader>d :SlimuxREPLSendSelection<cr>j
     " - send *l*ine, optionally go *d*own
-    nnoremap <silent> <leader>l :SlimuxREPLSendLine<cr>
-    nnoremap <silent> <leader>d :SlimuxREPLSendLine<cr>j
+    nnoremap <silent> <leader>l mj:SlimuxREPLSendLine<cr>`j
+    " nnoremap <silent> <leader>d :SlimuxREPLSendLine<cr>j
+    function! SendAndReturn(str) abort
+        execute "normal! mj"
+        call SlimuxSendCode(a:str)
+        execute "normal! `j"
+    endfunction
+    " autocmd FileType julia call toop#mapFunction('SlimuxSendCode', '<leader>s')
+    autocmd FileType julia call toop#mapFunction('SendAndReturn', '<leader>s')
+    autocmd FileType markdown call toop#mapFunction('SendAndReturn', '<leader>s')
     let g:slimux_select_from_current_window=1
 " }}}
 
@@ -212,9 +213,9 @@ Plug 'SirVer/ultisnips'
     " let g:SuperTabDefaultCompletionType = '<C-n>'
 
     " better key bindings for UltiSnipsExpandTrigger
-    let g:UltiSnipsExpandTrigger = "<tab>"
-    let g:UltiSnipsJumpForwardTrigger = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    " let g:UltiSnipsExpandTrigger = "<tab>"
+    " let g:UltiSnipsJumpForwardTrigger = "<tab>"
+    " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
@@ -236,8 +237,31 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 "=============================================================================="
 Plug 'JuliaLang/julia-vim'
 " {{{
-    let g:default_julia_version = '1.1'
+    let g:default_julia_version = '1.2'
     au VimEnter,BufRead,BufNewFile *.jl set filetype=julia
+    autocmd FileType julia setlocal commentstring=#\ %s
+    runtime macros/matchit.vim
+" }}}
+"
+Plug 'kdheepak/JuliaFormatter.vim'
+" {{{
+    " normal mode mapping
+    " autocmd FileType julia nnoremap <leader>ff :<C-u>call JuliaFormatter#Format(0)<CR>
+    " visual mode mapping
+    autocmd FileType julia vnoremap <leader>ff :<C-u>call JuliaFormatter#Format(1)<CR>
+    autocmd FileType julia nnoremap <leader>fip mjvip:<C-u>call JuliaFormatter#Format(1)<CR><esc>`j
+    autocmd FileType julia nnoremap <leader>fis mjvis:<C-u>call JuliaFormatter#Format(1)<CR><esc>`j
+    autocmd FileType julia nnoremap <leader>ff mjvaj:<C-u>call JuliaFormatter#Format(1)<CR><esc>`j
+
+    function! JuliaFormatObject(str) abort
+        if !get(g:, 'JuliaFormatter_loaded')
+            call JuliaFormatter#Launch()
+        end
+        let l:str = split(a:str, '\n')
+        return JuliaFormatter#Send('format', {'text': l:str})
+    endfunction
+    autocmd FileType julia call toop#mapFunction('JuliaFormatObject', '<leader>a')
+    " autocmd FileType julia call toop#mapFunction('JuliaFormatter#Format(1)', '<leader>f')
 " }}}
 
 " Plug 'ivanov/vim-ipython'
@@ -256,7 +280,7 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " EOF
 "
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 Plug 'cmci/ImageJMacro_Highlighter'
 
@@ -268,22 +292,16 @@ Plug 'lervag/vimtex'
     set conceallevel=1
     let g:tex_conceal='abdmg'
 
-    map <F2> :w<cr><leader>ll
     let g:vimtex_view_general_viewer = 'zathura'
     let g:vimtex_view_method= 'zathura'
     "let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
     let g:vimtex_view_general_options = '-s'
     "let g:vimtex_view_general_options_latexmk = '--unique'
 
-    autocmd FileType tex silent! unmap <buffer> tse
-    autocmd FileType tex silent! unmap <buffer> tsd
-    autocmd FileType tex silent! unmap <buffer> tsD
-    autocmd FileType tex silent! unmap <buffer> tsc
-
-    autocmd FileType tex nnoremap <buffer> jse <Plug>(vimtex-env-toggle-star)
-    autocmd FileType tex nnoremap <buffer> jsd <Plug>(vimtex-delim-toggle-modifier)
-    autocmd FileType tex nnoremap <buffer> jsD <Plug>(vimtex-delim-toggle-modifier-reverse)
-    autocmd FileType tex nnoremap <buffer> jsc <Plug>(vimtex-cmd-toggle-star)
+    autocmd FileType tex map <buffer> jse <plug>(vimtex-env-toggle-star)
+    autocmd FileType tex map <buffer> jsd <plug>(vimtex-delim-toggle-modifier)
+    autocmd FileType tex map <buffer> jsD <plug>(vimtex-delim-toggle-modifier-reverse)
+    autocmd FileType tex map <buffer> jsc <plug>(vimtex-cmd-toggle-star)
 
     autocmd FileType tex silent! unmap <buffer> <leader>l 
 
@@ -321,6 +339,10 @@ let g:cpp_class_scope_highlight = 1
 
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" Plug 'plasticboy/vim-markdown'
+au VimEnter,BufRead,BufNewFile *.jmd set filetype=juliamarkdown
+
+Plug 'plasticboy/vim-markdown'
 
 "=============================================================================="
 "===================================  Misc  ==================================="
@@ -354,20 +376,46 @@ call plug#end()            " required
 " filetype plugin indent on    " required
 " filetype plugin on
 
+let g:deoplete#enable_at_startup = 1
 call deoplete#enable()
 call deoplete#custom#source('_',
     \ 'disabled_syntaxes', ['Comment', 'String'])
 call deoplete#custom#option('sources', {
     \ 'julia': ['LanguageClient'],
     \})
-
 call deoplete#custom#var('omni', 'input_patterns', {
             \ 'tex': g:vimtex#re#deoplete
             \})
+call deoplete#custom#source('ultisnips', 'rank', 1000)
+
 "=====[ Enable Nmap command for documented mappings ]================
 runtime bundle/plugin/documap.vim
 runtime macros/matchit.vim
 
+" {{{  LanguageClient
+    " set updatetime=300
+    let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_serverCommands = {
+        \   'julia': ['julia', '--startup-file=no', '--history-file=no', '-e', '
+        \       using LanguageServer;
+        \       using Pkg;
+        \       "Project.toml" in readdir() && Pkg.activate(".");
+        \       import StaticLint;
+        \       import SymbolServer;
+        \       env_path = dirname(Pkg.Types.Context().env.project_file);
+        \       debug = true; 
+        \       
+        \       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, "", Dict());
+        \       server.runlinter = true;
+        \       run(server)
+        \   '],
+        \   'python': ['pyls',]
+        \ }
+
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" }}}
 
 "=============================================================================="
 "================================  Appearance  ================================"
@@ -386,8 +434,10 @@ set number
 set relativenumber
 set hidden " Leave hidden buffers open  
 set history=100 
-set colorcolumn=80
+set colorcolumn=92
 set cursorline
+
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'julia']
 
 silent! command DoMatchParen
 
@@ -400,6 +450,7 @@ if has('nvim')
 end
 
 
+autocmd FileType julia setlocal commentstring=#\ %s
 
 "====[ Make tabs, trailing whitespace, and non-breaking spaces visible ]======
 "exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
