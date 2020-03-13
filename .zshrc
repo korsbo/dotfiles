@@ -2,6 +2,8 @@ case $(uname -a) in
    *Microsoft*) unsetopt BG_NICE ;;
 esac
 
+
+
 #bindkey -v
 export KEYTIMEOUT=1
 # Path to your oh-my-zsh installation.
@@ -51,9 +53,13 @@ setopt HIST_IGNORE_SPACE
 DEBIAN_PREVENT_KEYBOARD_CHANGES="true"
 
 # User configuration
+#
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   exec tmux
+# fi
 
-# export PATH="${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts:${HOME}/programs/clang/clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04/bin"
-export PATH="${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts"
+
+export PATH="${HOME}/programs/node-v10.16.0-linux-x64/bin:${HOME}/programs/anaconda3/bin:/nfs/bin:${HOME}/master/scripts:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:${HOME}/projects/images/scripts"
 
 # export PATH="/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/nfs/bin/:/home/william/b13_niklas/master/scripts:/home/william/b13_niklas/bin/:/home/william/b13_niklas/python/venv/base/bin:/usr/lib64/mpi/gcc/openmpi/bin:/home/william/b13_niklas/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -106,3 +112,5 @@ antigen apply
 
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:/snap/bin"
