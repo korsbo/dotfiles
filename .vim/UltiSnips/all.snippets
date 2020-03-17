@@ -1,6 +1,12 @@
-snippet box "Box"
+snippet box "Box comment" b
 `!v split(split(&commentstring, '%s')[0], ' ')[0]``!v repeat("=",78)``!v split(split(&commentstring, '%s')[0], ' ')[0]`
 `!v split(split(&commentstring, '%s')[0], ' ')[0]``!p snip.rv = '=' * int(37 - len(t[1])/2)`  $1  `!p snip.rv = '=' * int(38 - (len(t[1])+1)/2)``!v split(&commentstring, '%s')[0]`
 `!v split(split(&commentstring, '%s')[0], ' ')[0]``!v repeat("=",78)``!v split(split(&commentstring, '%s')[0], ' ')[0]`
+$0
+endsnippet
+
+
+snippet lc "Line comment" b
+`!v split(split(&commentstring, '%s')[0], ' ')[0]``!p snip.rv = '=' * int(37 - len(t[1])/2)`  $1  `!p snip.rv = '=' * int(38 - (len(t[1])+1)/2)``!v split(&commentstring, '%s')[0]`
 $0
 endsnippet
