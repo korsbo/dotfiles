@@ -269,7 +269,10 @@ mode "$mode_system" {
 
 
 # Lock screen
-bindsym $mod+Mod1+l exec --no-startup-id blurlock
+# bindsym $mod+Mod1+l exec --no-startup-id blurlock
+bindsym $mod+Mod1+l exec --no-startup-id i3lock -c 000000
+#
+# bindsym $mod+Mod1+l exec xset dpms force off
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -283,7 +286,8 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 10 -locker i3lock -c 000000
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -365,7 +369,7 @@ bindsym $mod+m bar mode toggle
 #############################
 
 # Set inner/outer gaps
-gaps inner 14
+gaps inner 6
 gaps outer -2
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
@@ -437,16 +441,16 @@ bindsym $mod+Return exec terminator
 
 
 # # bind workspaces to screens
-# workspace 1 output DP-6
-# workspace 2 output DP-6
-# workspace 3 output DP-6
-# workspace 4 output DP-6
-# workspace 5 output DP-6
-# workspace 6 output DP-4
-# workspace 7 output DP-4
-# workspace 8 output DP-4
-# workspace 9 output DP-4
-# workspace 10 output DP-4
+workspace 1 output eDP1
+workspace 2 output eDP1
+workspace 3 output eDP1
+workspace 4 output eDP1
+workspace 5 output eDP1
+workspace 6 output DP2
+workspace 7 output DP2
+workspace 8 output DP2
+workspace 9 output DP2
+workspace 10 output DP2
 
 # cycle workspaces
 bindsym $mod+Tab workspace next
@@ -487,7 +491,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# bindsym $mod+w mode "resize"
+bindsym $mod+r mode "resize"
 
 mode "move" {
 		# move focused window
@@ -546,8 +550,8 @@ bindsym $mod+i mode "normal"
 # font pango:Ubuntu Mono 9
 # bindsym Control+mod1+l exec i3lock -c 000000
 
-# for_window [class="gksqt"] floating enable, move to workspace number 6
-# for_window [class="Eog"] move to workspace number 6
-# for_window [class="MATLAB R2018b - academic use"] floating enable, move to workspace number 6
+for_window [class="gksqt"] floating enable, move to workspace number 6
+for_window [class="Eog"] move to workspace number 6
+for_window [class="MATLAB R2018b - academic use"] floating enable, move to workspace number 6
  
 
