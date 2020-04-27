@@ -84,6 +84,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'korsbo/srcery-vim'
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
+Plug 'lifepillar/vim-solarized8'
 
 ""=============================================================================="
 ""=======================  Asynchronous code completion  ======================="
@@ -431,7 +432,10 @@ set hls
 " syntax enable " Turn on syntax highlighting  
 set termguicolors
 " colorscheme monokai
-colorscheme srcery
+" colorscheme srcery
+set background=light
+colorscheme solarized8
+
 " colorscheme vorange " for some reason this one will not switch on without first
 " changing to another colorscheme
 set number
